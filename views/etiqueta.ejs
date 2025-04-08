@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Etiquetas</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 40px;
+         margin: 0;
+        padding: 0; 
+
+      }
+      .grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .etiqueta {
+        border: 1px solid #000;
+        padding: 15px;
+        width: 260px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        page-break-before: always; /* Esto asegura que cada etiqueta comienza en una nueva página */
+
+      }
+      .info {
+        font-size: 13px;
+      }
+      .qr img {
+        width: 100px;
+        height: 100px;
+      }
+      .page-break {
+        page-break-after: always;
+      }
+
+      @media print {
+        body {
+          margin: 0;
+          padding: 0;
+        }
+        .grid {
+          display: block; /* Esto asegura que cada etiqueta esté en su propia página */
+        }
+        .no-print {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body onload="window.print()">
+    <div class="grid">
+      <% etiquetas.forEach(etiqueta => { %>
+      <div class="page-break">
+        <div class="etiqueta">
+          <div class="info">
+            <div><strong>Nombre empresa</strong></div>
+            <div>Info extra</div>
+            <br />
+            <div><strong>ID:</strong> <%= etiqueta.id %></div>
+            <div><strong>Versión:</strong> <%= etiqueta.version %></div>
+            <br />
+            <div><%= etiqueta.fecha %></div>
+          </div>
+          <div class="qr">
+            <img src="<%= etiqueta.qrBase64 %>" />
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </body>
+</html>
